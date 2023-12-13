@@ -1,24 +1,10 @@
-<<<<<<< HEAD
 # Logs
 logs
 *.log
-=======
-.DS_Store
-node_modules
-/dist
-
-
-# local env files
-.env.local
-.env.*.local
-
-# Log files
->>>>>>> cabef6739efc2a891d243b7601760c63edec01a4
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
-<<<<<<< HEAD
 lerna-debug.log*
 
 node_modules
@@ -35,12 +21,6 @@ coverage
 .vscode/*
 !.vscode/extensions.json
 .idea
-=======
-
-# Editor directories and files
-.idea
-.vscode
->>>>>>> cabef6739efc2a891d243b7601760c63edec01a4
 *.suo
 *.ntvs*
 *.njsproj
