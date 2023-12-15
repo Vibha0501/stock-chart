@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # stock-chart
 
 This template should help get you started developing with Vue 3 in Vite.
@@ -28,7 +27,6 @@ npm run dev
 ```sh
 npm run build
 ```
-=======
 # Stock Chart Frontend
 In frontend we have to send symbol,start date and end date in string format. Also we have to specify the type of chart.
 
@@ -46,6 +44,3 @@ https://stocks-fariz.herokuapp.com/
 
 We have to do a POST request with sending symbol,start date and end date as string from frontend.
 Then the backend API sends the relevant data in JSON format.
-
-
->>>>>>> cabef6739efc2a891d243b7601760c63edec01a4

@@ -110,12 +110,13 @@ export default {
   methods: {
     submit() {
       axios
-        .get(
-          `https://api.polygon.io/v1/meta/symbols/${this.symbol}/company?&apiKey=`
+        .get(`https://api.polygon.io/v3/reference/tickers/${this.symbol}?apiKey=FD9zdyzLpfXvGQIGae7HcX3rr5FNLNC9`
+          
         )
         .then((resp) => {
-          (this.companyName = resp.data.name),
-            (this.description = resp.data.description);
+          console.log(resp);
+          (this.companyName = resp.data.results.name),
+            (this.description = resp.data.results.description);
         });
       const endres = {
         symbol: this.symbol,
@@ -124,21 +125,26 @@ export default {
       };
       console.log(endres);
       
-      axios.post(`https://stocks-fariz.herokuapp.com/`, endres).then((res) => {
+      axios.get(`https://api.polygon.io/v2/aggs/ticker/${this.symbol}/range/1/day/${this.start}/${this.end}?adjusted=true&sort=asc&limit=120&apiKey=FD9zdyzLpfXvGQIGae7HcX3rr5FNLNC9`).then((res) => {
+        console.log(res);
         (this.open = []),
           (this.close = []),
           (this.high = []),
           (this.low = []),
           (this.datex = []),
           (this.xi = ""),
-          (this.result = res.data);
-        for (this.xi of this.result) {
-          this.open.push(this.xi.open);
-          this.close.push(this.xi.close);
-          this.high.push(this.xi.high);
-          this.low.push(this.xi.low);
-          this.datex.push(this.xi.date);
-        }
+          (this.result = res.data.results);
+        this.result.forEach((item) =>{
+          this.open.push(item.o);
+          this.close.push(item.c);
+          this.high.push(item.h);
+          this.low.push(item.l);
+          const date = new Date(item.t); // Assuming 't' represents the timestamp
+      const formattedDate = date.toLocaleString(); // Modify this line for a specific date format if needed
+      this.datex.push(formattedDate);
+          this.datex.push(item.t);
+        })
+        console.log(this.open);
       });
       var trace1 = {
         x: this.datex,
@@ -204,7 +210,15 @@ export default {
         },
       };
 
-      Plotly.newPlot(this.chartType, data, layout);
+      Plotly.newPlot(this.chartType, data, layout)
+      .then((chart) => {
+        // Log success and chart object
+        console.log('Chart created:', chart);
+      })
+      .catch((error) => {
+        // Handle plot creation errors
+        console.error('Error creating plot:', error);
+      });
     },
   },
 
